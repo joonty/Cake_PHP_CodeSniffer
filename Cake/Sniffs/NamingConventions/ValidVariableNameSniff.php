@@ -78,8 +78,8 @@ class Cake_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSniff
             // Check to see if we are using a variable from an object.
             $var     = $phpcsFile->findNext(array(T_STRING), ($objOperator + 1));
             $bracket = $objOperator = $phpcsFile->findNext(array(T_WHITESPACE), ($var + 1), null, true);
-	    
-            // This Object variable is not a method ;) 
+
+            // This Object variable is not a method ;)
             if ($tokens[$bracket]['code'] !== T_OPEN_PARENTHESIS) {
 
                 $objVarName = $tokens[$var]['content'];
@@ -92,13 +92,13 @@ class Cake_Sniffs_NamingConventions_ValidVariableNameSniff extends PHP_CodeSniff
                     $objVarName = substr($objVarName, 1);
                 }
 
-		// Check to see if we are dealing with an Object object variable
-		if($tokens[$bracket]['code'] === T_OBJECT_OPERATOR ) {
-		// We are dealing with an Object
-			$isObject = true;
-		} else {
-			$isObject = false;	
-		}
+                //Cake is inconsistent - components/helpers/models are uppercase,
+                //other atts are lowercase (eg request)
+                if (preg_match('/[A-Z]/',$objVarName[0])) {
+		$isObject = true;
+                } else {
+                        $isObject = false;
+                }
                 if (PHP_CodeSniffer::isCamelCaps($objVarName, $isObject, true, false) === false) {
                     $error = "Variable \"$originalVarName\" is not in valid camel caps format";
                     $phpcsFile->addError($error, $var);
