@@ -28,6 +28,8 @@
 	<rule ref="PEAR.Functions.FunctionCallSignature" />
 	<rule ref="PEAR.Functions.ValidDefaultValue" />
 	<rule ref="PEAR.NamingConventions.ValidClassName" />
+	<rule ref="Squiz.Commenting.ClassComment" />
+	<rule ref="Squiz.Commenting.FunctionComment" />
 	<rule ref="Squiz.Functions.GlobalFunction" />
 	<rule ref="Squiz.ControlStructures.InlineIfDeclaration" />
 </ruleset>
